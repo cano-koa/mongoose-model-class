@@ -4,3 +4,6 @@ node_modules
 # Lock files
 package-lock.json
 yarn.lock
+
+# Log files
+yarn-error.log

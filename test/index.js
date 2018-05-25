@@ -83,21 +83,3 @@ describe('Mongoose Model Class tests', () => {
   })
 
 });
-/* 
-
-(async () => {
-  const usr = await u.create();
-  console.log('user', usr);
-  console.log('user.fullname', usr.fullname);
-  usr.fullname = 'Anesuto Rohasu'
-  console.log('user.fullname', usr.fullname);
-  console.log('User.get', await u.get({}));
-  console.log('User.getById', await u.getById(usr.id));
-  console.log('User.updateById', await u.updateById(usr.id, {
-    email: 'ernestorojas.dev@gmail.com',
-  }));
-  console.log('User.disable', await usr.disable());
-  console.log('User.getById 2', await u.getById(usr.id));  
-  console.log('User.deleteById', await u.deleteById(usr.id));
-})();
- */
