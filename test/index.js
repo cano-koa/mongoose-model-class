@@ -78,6 +78,10 @@ describe('Mongoose Model Class tests', () => {
 
   })
 
+  after(async () => {
+    await modelUser.remove({});
+  })
+
 });
 /* 
 
