@@ -8,20 +8,20 @@ class MongooseModelClass {
     throw new Error('The method build must be implemented');
   }
 
-  beforeSave(done) {
-    done();
+  beforeSave(doc, next) {
+    next();
   }
 
-  afterSave(doc, done) {
-    done();
+  afterSave(doc, next) {
+    next();
   }
 
-  beforeUpdate(done) {
-    done();
+  beforeRemove(doc, next) {
+    next();
   }
 
-  afterUpdate(doc, done) {
-    done();
+  afterRemove(doc, next) {
+    next();
   }
 
   options() {
@@ -79,7 +79,7 @@ function setVirtualMethods(target, schema) {
   _.map(properties, name => {
     const method = Object.getOwnPropertyDescriptor(o, name);
     if (Util.isVirtualMethod(name, method)) {
-      const v = schema.virtual(name);      
+      const v = schema.virtual(name);
       if (_.has(method, 'set')) {
         v.set(method.set);
       }
@@ -92,16 +92,16 @@ function setVirtualMethods(target, schema) {
 
 function setLifeCycleCallbacks(target, schema) {
   schema.pre('save', function(next) {
-    target.beforeSave.call(this, next);
+    target.beforeSave(this, next);
   })
   schema.post('save', function(doc, next) {
-    target.afterSave.call(this, doc, next);
+    target.afterSave(doc, next);
   })
-  schema.pre('update', function(next) {
-    target.beforeUpdate.call(this, next);
+  schema.pre('remove', function(next) {
+    target.beforeRemove(this, next);
   })
-  schema.post('update', function(doc, next) {
-    target.afterUpdate.call(this, doc, next);
+  schema.post('remove', function(doc, next) {
+    target.afterRemove(doc, next);
   })
 }
 
