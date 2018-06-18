@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const sha1 = require('sha1');
 const MongooseModelClass = require('../index');
 
 describe('Mongoose Model Class tests', () => {
@@ -18,8 +19,11 @@ describe('Mongoose Model Class tests', () => {
       email: 'ernesto20145@gmail.com',
       phone: '+56 945472812',
       username: 'ernestojr',
-      password: 'qwertyuiop',
+      password: '20145',
     });
+    if (!(docUser.password === sha1('20145'))) {
+      throw new Error('Password is not convert to sha1');
+    }
   });
 
   it('Should call static method', async () => {
@@ -49,17 +53,22 @@ describe('Mongoose Model Class tests', () => {
           status: { type: Boolean, default: true },
         };
       }
-    
+
+      beforeSave(doc, next) {
+        doc.password = sha1(doc.password);
+        next();
+      }
+
       get fullname() {
         return `${this.firstName} ${this.lastName}`;
       }
-    
+
       set fullname(value) {
         const fName = value.split(' ');
         this.firstName = fName[0];
         this.lastName = fName[1];
       }
-    
+
       static async getById(id) {
         const user = await this.findById(id);
         if (!user) {
@@ -71,7 +80,7 @@ describe('Mongoose Model Class tests', () => {
       disable() {
         return this.model('User').update({ _id: this.id }, { $set: { status: false } });
       }
-    
+
     }
 
     classUser = new User();
