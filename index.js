@@ -91,17 +91,17 @@ function setVirtualMethods(target, schema) {
 }
 
 function setLifeCycleCallbacks(target, schema) {
-  schema.pre('save', function(next) {
-    target.beforeSave(this, next);
+  schema.pre('save', async function(next) {
+    await target.beforeSave(this, next);
   })
-  schema.post('save', function(doc, next) {
-    target.afterSave(doc, next);
+  schema.post('save', async function(doc, next) {
+    await target.afterSave(doc, next);
   })
-  schema.pre('remove', function(next) {
-    target.beforeRemove(this, next);
+  schema.pre('remove', async function(next) {
+    await target.beforeRemove(this, next);
   })
-  schema.post('remove', function(doc, next) {
-    target.afterRemove(doc, next);
+  schema.post('remove', async function(doc, next) {
+    await target.afterRemove(doc, next);
   })
 }
 
