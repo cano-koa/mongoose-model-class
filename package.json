@@ -1,6 +1,6 @@
 {
   "name": "mongoose-model-class",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "This module converts a class to a mongoose model.",
   "main": "index.js",
   "scripts": {
